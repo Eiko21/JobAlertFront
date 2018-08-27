@@ -1,3 +1,7 @@
+if(localStorage.getItem("login")){
+  window.location.href = "/suscripciones/subs.html";
+}
+
 async function login(){
   const data = {
     email: document.getElementById("email").value,
@@ -8,8 +12,9 @@ async function login(){
     // handle success
     if(response.status === 200){
       chrome.storage.local.set({'email': data.email, 'password': data.password, 'id': response.data._id}, function() {
+        localStorage.setItem("login", data.email)
+        console.log(localStorage.getItem(data.password, data.email))
         window.location.href = "/suscripciones/subs.html";
-        userLogin();
       });
     }
   })

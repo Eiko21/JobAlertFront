@@ -16,12 +16,14 @@ async function track() {
       if(result === "jobs.lever.co" || result === "boards.greenhouse.io"){
         //let filter = (/\b.*(?=(\.))/);
         result = url.match(/\/([^/]*)$/)[1];
+        console.log(result)
       }else{
         if (match = result.match(/^[^\.]+\.(.+\..+)$/)) {
           result = match[1]
         }
         let filter = (/\b.*(?=(\.))/);
         result = filter.exec(result);
+        console.log(result)
       }
     }
     data.subscription = result[0];
@@ -51,3 +53,24 @@ async function subscribe(data){
 $("#but").on("click", function(){
   track();
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Inicio');
+});
+
+chrome.tabs.onUpdated.addListener(
+  function ( tabId, changeInfo, tab )
+  { 
+    if ( changeInfo.status === "complete" ){
+      chrome.tabs.executeScript({ code: "console.log('attempt #4');" }, function() {
+        console.log("Pag cambiada, AQUI HACER LA PETICION DE CHECKSUBSCRIBE");
+      // If checksubscribe da positivo:
+      // chrome.browserAction.setIcon({path: "./images/color.png"});
+      // Si no:
+      // chrome.browserAction.setIcon({path: "./images/normal.png"});
+      
+      // Para mostrar el número de notificaciones:
+      // chrome.browserAction.setBadgeText({text: number.toString()});
+      });
+    }
+});
