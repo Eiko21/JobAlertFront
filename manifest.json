@@ -2,7 +2,7 @@
     "name": "JobTracker",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["declarativeContent", "storage", "activeTab", "cookies", "<all_urls>", "storage"],
+    "permissions": ["declarativeContent", "storage", "activeTab", "cookies", "<all_urls>"],
     "background": {
         "scripts": ["jquery-3.3.1.min.js", "axios.js", "login.js"],
         "persistent": false

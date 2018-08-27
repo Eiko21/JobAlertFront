@@ -1,12 +1,27 @@
-/*
-'use strict';
-
-let changeColor = document.getElementById('track');
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
+$( document ).ready(function() {
+  chrome.storage.local.get(['email','password','id'], function(result){
+      axios.post('http://localhost:3333/api/subscriptions/subscribe', data)
+        .then(function (response) {
+          // handle success
+          if(response.status === 200){
+            chrome.storage.local.set({'email': data.email, 'password': data.password, 'id': response.data._id}, function() {
+              window.location.href = "/suscripciones/subs.html";
+            });
+          }
+          fetch('http://localhost:3333/api/subscriptions/subscribe', {
+            method: 'post',
+            body: JSON.stringify(result)
+          }).then(function(response){return response.json();})
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+  });
 });
-*/
 
 $(function(){
   console.log("Start");
